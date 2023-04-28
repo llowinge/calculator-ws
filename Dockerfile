@@ -27,6 +27,9 @@ ENV BASIC_AUTH_PASSWORD=""
 # Expose the ports we're interested in
 EXPOSE 8080
 
+USER 1001
+RUN chown -R 1001:0 /opt/jboss/wildfly/standalone/log
+
 # Set the default command to run on boot
 # This will boot WildFly in the standalone mode and bind to all interface
 ENTRYPOINT ["/bin/sh", "-c", "if [ \"x$BASIC_AUTH_USER\" != \"x\" -a \"x$BASIC_AUTH_PASSWORD\" != \"x\" ]; then /opt/jboss/wildfly/bin/add-user.sh -a -u \"$BASIC_AUTH_USER\" -p \"$BASIC_AUTH_PASSWORD\" -g app-users; fi; /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0"]

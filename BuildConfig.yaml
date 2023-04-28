@@ -1,0 +1,19 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: calculator
+  labels:
+    app: calculator
+spec:
+  source:
+    type: Git
+    git:
+      uri: https://github.com/llowinge/calculator-ws
+  strategy:
+    type: Docker                      
+    dockerStrategy:
+      dockerfilePath: Dockerfile    # Look for Dockerfile in: gitUri/contextDir/dockerfilePath
+  output:
+    to:
+      kind: ImageStreamTag
+      name: calculator:latest
